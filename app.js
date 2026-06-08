@@ -2,10 +2,17 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from "./app/helper/swagger.js"
+import path from 'path';
+import routerUser from './app/router/user/user.router.js';
 
 dotenv.config();
 
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * Conection MongoDB
@@ -30,6 +37,16 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization', 'x-api-key'],
 }));
+
+/**
+ * Swagger
+*/
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+/**
+ * Routes
+*/
+app.use(`/api/${process.env.API_VERSION}`, routerUser)
 
 
 export default app;
