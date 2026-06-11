@@ -8,17 +8,17 @@ const userController = {
         try {
             
             const {
-                nombre,
+                fullName,
                 email,
                 password,
                 rol,
                 biografia
             } = req.body;
 
-            if (!nombre || !email || !password) {
+            if (!fullName || !email || !password) {
                 return res.status(400).json({
                     ok: false,
-                    message: "Nombre, email y password son obligatorios"
+                    message: "fullName, email y password son obligatorios"
                 });
             }
 
@@ -44,7 +44,7 @@ const userController = {
             */
 
             const user = new userModel({
-                nombre,
+                fullName,
                 email,
                 password: hashedPassword,
                 rol,
@@ -58,7 +58,7 @@ const userController = {
                 message: "Usuario creado correctamente",
                 data: {
                     id: user._id,
-                    nombre: user.nombre,
+                    fullName: user.fullName,
                     email: user.email,
                     rol: user.rol
                 }

@@ -4,9 +4,9 @@ const usuarioSchema = new mongoose.Schema({
     fullName : { type: String, required: true },
     email : { type: String, required: true, unique: true },
     password : { type: String, required: true },
-    photoPerfil : { type: String, required: true },
+    photoPerfil : { type: String },
     rol : { type: String, enum: ['admin','teacher', 'student'] },
-    biografi : { type: String, required: true },
+    biografi : { type: String },
     dateCreation : { type: Date, default: Date.now },
     estadus : { type: Boolean, default: true }
 })

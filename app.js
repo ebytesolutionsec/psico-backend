@@ -7,6 +7,10 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from "./app/helper/swagger.js"
 import path from 'path';
 import routerUser from './app/router/user/user.router.js';
+import routerCategori from './app/router/categori/categori.router.js';
+import routerAuth from './app/router/user/auth.router.js';
+import routerCourse from './app/router/course/course.router.js';
+import moduleCourseRouter from './app/router/modul/modul.router.js';
 
 dotenv.config();
 
@@ -46,7 +50,11 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 /**
  * Routes
 */
+app.use(`/api/${process.env.API_VERSION}`, routerAuth)
 app.use(`/api/${process.env.API_VERSION}`, routerUser)
+app.use(`/api/${process.env.API_VERSION}`, routerCategori)
+app.use(`/api/${process.env.API_VERSION}`, routerCourse)
+app.use(`/api/${process.env.API_VERSION}`, moduleCourseRouter)
 
 
 export default app;

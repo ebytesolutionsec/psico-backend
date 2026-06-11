@@ -1,5 +1,5 @@
 import { Router } from "express";
-import authController from "../../controller/user/auth.controller";
+import authController from "../../controller/user/auth.controller.js";
 
 const routerAuth = Router()
 
@@ -40,3 +40,5 @@ const routerAuth = Router()
  *         description: Error interno del servidor
  */
 routerAuth.post('/login', authController.auth)
+
+export default routerAuth

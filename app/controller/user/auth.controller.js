@@ -1,4 +1,4 @@
-import usuarioSchema from "../../modules/user/user.model.js"
+import userModel from '../../models/user/user.model.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
@@ -11,7 +11,7 @@ const authController = {
         try {
             const { email, password } = req.body;
 
-            const user = await usuarioSchema.findOne({ email })
+            const user = await userModel.findOne({ email })
 
             if(!user){
                 return res.status(404).json({ message : "Email incorrecto, porfavor revise y vuelva a ingresar"})
