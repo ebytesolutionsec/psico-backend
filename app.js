@@ -11,6 +11,7 @@ import routerCategori from './app/router/categori/categori.router.js';
 import routerAuth from './app/router/user/auth.router.js';
 import routerCourse from './app/router/course/course.router.js';
 import moduleCourseRouter from './app/router/modul/modul.router.js';
+import lessonRouter from './app/router/lesson/lesson.router.js';
 
 dotenv.config();
 
@@ -55,6 +56,7 @@ app.use(`/api/${process.env.API_VERSION}`, routerUser)
 app.use(`/api/${process.env.API_VERSION}`, routerCategori)
 app.use(`/api/${process.env.API_VERSION}`, routerCourse)
 app.use(`/api/${process.env.API_VERSION}`, moduleCourseRouter)
+app.use(`/api/${process.env.API_VERSION}`, lessonRouter)
 
 
 export default app;

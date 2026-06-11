@@ -19,7 +19,7 @@ const lessonSchema = new mongoose.Schema({
                 }
             ]
         }
-    },
+    }, 
     duracion: { type: Number, default: 0 },
     orden : { type : Number, required: true }
 })
