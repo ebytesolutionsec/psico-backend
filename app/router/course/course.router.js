@@ -63,4 +63,36 @@ const routerCourse = Router()
  */
 routerCourse.post('/course/create', courseController.createCourse)
 
+/**
+ * @swagger
+ * /course/list:
+ *   get:
+ *     summary: Listar cursos con paginación
+ *     description: Obtiene un listado paginado de cursos registrados en el sistema.
+ *     tags: [Courses]
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Número de página
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *         description: Cantidad de registros por página
+ *     responses:
+ *       200:
+ *         description: Lista de cursos obtenida correctamente
+ *         content:
+ *           application/json:
+ *       400:
+ *         description: Parámetros de paginación inválidos
+ *       500:
+ *         description: Error interno del servidor
+ */
+routerCourse.get('/course/list', courseController.listAllCourses)
+
 export default routerCourse;

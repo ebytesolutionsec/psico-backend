@@ -1,5 +1,6 @@
 
 import categoriModel from "../../models/categori/categori.model.js";
+import paginationHelper from "../../helper/pagination.helper.js";
 
 const categoriController = {
     
@@ -42,7 +43,48 @@ const categoriController = {
             });
             
         }
+    },
+
+    listAllCategories : async ( req , res ) => {
+        try {
+            
+            const  { page, limit, ...filters } = req.query;
+
+            const result = await paginationHelper.paginate( categoriModel, { 
+                page, 
+                limit, 
+                filter: filters })
+
+            return res.status(200).json({
+                ok: true,
+                message: "Categorías obtenidas correctamente",
+                data: result
+            })
+
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({
+                ok: false,
+                message: "Error interno del servidor"
+            });
+        }
+    },
+
+    editCategori: async ( req, res ) => {
+        try {
+            
+            const { name, ...rest } = req.body
+
+            if(name){
+                const existName = await categoriModel.findOne({ name, _id: { $ne: req.params.id } })
+            }
+
+
+        } catch (error) {
+            
+        }
     }
+
 }
 
 export default categoriController

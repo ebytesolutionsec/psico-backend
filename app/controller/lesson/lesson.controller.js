@@ -2,6 +2,7 @@
 import courseModels from "../../models/course/course.models.js";
 import moduleCourseModels from "../../models/modulecourse/module.course.models.js";
 import lessonModels from "../../models/lesson/lesson.models.js";
+import paginationHelper from "../../helper/pagination.helper.js";
 
 const lessonController = {
 
@@ -153,6 +154,31 @@ const lessonController = {
 
         }
     },
+
+    listAllLessons: async (req, res) => {
+
+        try {
+            
+            const { page, limit, ...filters } = req.query;
+
+            const result = await paginationHelper.paginate( lessonModels, { 
+                page, 
+                limit, 
+                filter: filters })
+            return res.status(200).json({
+                ok: true,
+                message: "Lecciones listadas correctamente",
+                data: result
+            });
+
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({
+                ok: false,
+                message: "Error interno del servidor"
+            });
+        }
+    }
 }
 
 export default lessonController;

@@ -1,6 +1,7 @@
 
 import categoriModel from "../../models/categori/categori.model.js";
 import courseModels from "../../models/course/course.models.js";
+import paginationHelper from "../../helper/pagination.helper.js";
 
 const courseController = {
 
@@ -161,6 +162,32 @@ const courseController = {
                 message: "Error interno del servidor"
             });
             
+        }
+    },
+
+    listAllCourses : async ( req , res ) => {
+
+        try {
+            
+            const  { page, limit, ...filters } = req.query;
+
+            const result = await paginationHelper.paginate( courseModels, { 
+                page, 
+                limit, 
+                filter: filters })
+
+            return res.status(200).json({
+                ok: true,
+                message: "Cursos listados correctamente",
+                data: result
+            });
+
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({
+                ok: false,
+                message: "Error interno del servidor"
+            });
         }
     }
 }
