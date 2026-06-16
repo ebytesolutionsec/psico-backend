@@ -15,4 +15,6 @@ const progressSchema = new mongoose.Schema({
     dateUpdate : { type: Date, default: Date.now }
 })
 
+progressSchema.index({ usuarioId: 1, cursoId: 1 }, { unique: true });
+
 export default mongoose.model('Progress', progressSchema);

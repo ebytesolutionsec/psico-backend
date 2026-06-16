@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
 
-const reviewSchema = new mongoose.Schema({
+const saleSchema = new mongoose.Schema({
     usuarioId : { type: mongoose.Schema.Types.ObjectId, ref: 'Usuario', required: true },
     courseId : { type: mongoose.Schema.Types.ObjectId, ref: 'Course', required: true },
-    qualification : { type: Number, required: true },
-    comment : { type: String },
-    dateCreation : { type: Date, default: Date.now },
-    dateUpdate : { type: Date, default: Date.now }
+    mont : { type: Number, required: true },
+    paymentMethod : { type: String, enum: ['credit_card', 'debit_card', 'paypal'], required: true },
+    status : { type: String, enum: ['pending', 'completed', 'cancelled'], default: 'pending' },
+    reference : { type: String, required: true },
+
 })
 
-export default mongoose.model('Review', reviewSchema);
+export default mongoose.model('Sale', saleSchema);
