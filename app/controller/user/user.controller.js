@@ -58,6 +58,7 @@ const userController = {
             */
 
             const user = new userModel({
+                dni,
                 fullName,
                 email,
                 password: hashedPassword,
@@ -72,6 +73,7 @@ const userController = {
                 message: "Usuario creado correctamente",
                 data: {
                     id: user._id,
+                    dni : dni,
                     fullName: user.fullName,
                     email: user.email,
                     rol: user.rol
