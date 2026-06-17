@@ -9,6 +9,7 @@ const userController = {
         try {
             
             const {
+                dni,
                 fullName,
                 email,
                 password,
@@ -16,7 +17,9 @@ const userController = {
                 biografia
             } = req.body;
 
-            if (!fullName || !email || !password) {
+
+
+            if (!fullName || !email || !password || !dni) {
                 return res.status(400).json({
                     ok: false,
                     message: "fullName, email y password son obligatorios"
@@ -24,12 +27,22 @@ const userController = {
             }
 
             //Verify exist user
-            const userExist = await userModel.findOne({ email })
+            const userExist = await userModel.findOne({ dni })
 
             if(userExist){
                 return res.status(409).json({
                     ok: false,
-                    message : "El correo ya esta registrado"
+                    message : "Usuario ya registrado"
+                })
+            }
+
+            //Verify exist email
+            const userEmailExist = await userModel.findOne({ email })
+
+            if(userEmailExist){
+                return res.status(409).json({
+                    ok: false,
+                    message : "Este correo electrónico ya ha sido registrado"
                 })
             }
 
