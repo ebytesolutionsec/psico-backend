@@ -12,6 +12,7 @@ import routerAuth from './app/router/user/auth.router.js';
 import routerCourse from './app/router/course/course.router.js';
 import moduleCourseRouter from './app/router/modul/modul.router.js';
 import lessonRouter from './app/router/lesson/lesson.router.js';
+import payMethodRouter from './app/router/paymetod/payment.method.router.js';
 
 dotenv.config();
 
@@ -57,6 +58,7 @@ app.use(`/api/${process.env.API_VERSION}`, routerCategori)
 app.use(`/api/${process.env.API_VERSION}`, routerCourse)
 app.use(`/api/${process.env.API_VERSION}`, moduleCourseRouter)
 app.use(`/api/${process.env.API_VERSION}`, lessonRouter)
+app.use(`/api/${process.env.API_VERSION}`, payMethodRouter)
 
 
 export default app;

@@ -90,7 +90,7 @@ const userController = {
             return res.status(200).json({
                 ok: true,
                 message: "Usuarios obtenidos correctamente",
-                data: result
+                result
             })
 
         } catch (error) {

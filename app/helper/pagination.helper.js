@@ -17,9 +17,14 @@ const paginationHelper = {
             })
         }
 
+        const [data, total] = await Promise.all([
+            query.exec(),
+            model.countDocuments(filter)
+        ]);
+
         return {
             data,
-            tolta,
+            total,
             page: pageNumer,
             limit : limitNumer,
             totalPages : Math.ceil( total / limitNumer )
