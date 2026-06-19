@@ -9,7 +9,7 @@ const usuarioSchema = new mongoose.Schema({
     rol : { type: String, enum: ['admin','teacher', 'student'] },
     biografi : { type: String },
     dateCreation : { type: Date, default: Date.now },
-    estadus : { type: Boolean, default: true }
+    estatus : { type: Boolean, default: true }
 })
 
 export default mongoose.model('Usuario', usuarioSchema);

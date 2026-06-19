@@ -115,7 +115,7 @@ const courseController = {
 
             const existingCourse = await courseModels.findOne({
                 instructorId: user._id,
-                titulo: titulo.trim()
+                title: title.trim()
             });
 
             if (existingCourse) {
@@ -131,18 +131,18 @@ const courseController = {
             */
 
             const course = new courseModels({
-                titulo: titulo.trim(),
-                descripcion: descripcion.trim(),
+                title: title.trim(),
+                description: description.trim(),
                 imagen,
                 precio: Number(precio || 0),
                 nivel,
                 idioma: idioma || "es",
                 categoriaId,
                 instructorId: user._id,
-                objetivos: objetivos || [],
+                objetives: objetives || [],
                 requisitos: requisitos || [],
                 tags: tags || [],
-                estado: "borrador"
+                status: "borrador"
             });
 
             await course.save()

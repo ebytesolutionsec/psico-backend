@@ -1,6 +1,7 @@
 
 import categoriModel from "../../models/categori/categori.model.js";
 import paginationHelper from "../../helper/pagination.helper.js";
+import { W } from "@angular/cdk/keycodes";
 
 const categoriController = {
     
@@ -77,11 +78,41 @@ const categoriController = {
 
             if(name){
                 const existName = await categoriModel.findOne({ name, _id: { $ne: req.params.id } })
+                
+                if(existName){
+                    return res.status(409).json({
+                        ok : false,
+                        message : "El nombre de la categoria ya esta registrado"
+                    })
+                }
+
+                const categori = await categoriModel.findByIdAndUpdate(
+                    req.params.id,
+                    rest,
+                    { new : true }
+                )
+
+                if (!categori){
+                    return res.status(404).json({
+                        ok : false,
+                        message : "Categoria no encontrada"
+                    })
+                }
+
+                res.status(200).json({
+                    ok : true,
+                    message : "Categoria editada exitosamente"
+                })
+            
             }
 
-
         } catch (error) {
-            
+            console.error(error);
+
+            return res.status(500).json({
+                ok: false,
+                message: "Error interno del servidor"
+            });            
         }
     }
 

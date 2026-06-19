@@ -36,6 +36,13 @@ const userController = {
                 })
             }
 
+            if( dni.length > 10 ){
+                return res.status(400).json({
+                    ok : false,
+                    message : "La cédula debe tener 10 dígitos"
+                })
+            }
+
             //Verify exist email
             const userEmailExist = await userModel.findOne({ email })
 

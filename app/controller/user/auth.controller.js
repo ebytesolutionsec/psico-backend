@@ -3,8 +3,8 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 const authController = {
-    generarToken : (userId, role) => {
-        return jwt.sign({ id : userId, rol : role}, process.env.JWT_SECRET, { expiresIn: '3h'})
+    generarToken : (userId, dni, rol) => {
+        return jwt.sign({ id : userId, dni : dni , rol : rol}, process.env.JWT_SECRET, { expiresIn: '3h'})
     },
 
     auth : async ( req, res ) => {
@@ -23,7 +23,9 @@ const authController = {
                 return res.status(400).json({ message : "Contraseña incorrecta"})
             }
 
-            const token = authController.generarToken(user._id, user.sucursal, user.role);
+            console.log("dni", user.dni)
+
+            const token = authController.generarToken(user._id, user.dni, user.rol);
 
             res.status(200).json({
                 message: "Autenticación exitosa",
