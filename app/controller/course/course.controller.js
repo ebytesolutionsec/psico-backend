@@ -1,4 +1,5 @@
 
+import mongoose from "mongoose"
 import categoriModel from "../../models/categori/categori.model.js";
 import courseModels from "../../models/course/course.models.js";
 import paginationHelper from "../../helper/pagination.helper.js";
@@ -15,9 +16,14 @@ const courseController = {
                 precio,
                 nivel,
                 idioma,
+                durationHours,
+                instructorId,
                 categorId,
                 objetives,
-                tags
+                requirements,
+                tags,
+                status,
+                cantStudents
             } = req.body;
 
             /**
@@ -37,7 +43,7 @@ const courseController = {
              * Roles permitidos
             */
 
-            if (!["instructor", "administrador"].includes(user.rol)) {
+            if (!["teacher", "admin"].includes(user.rol)) {
                 return res.status(403).json({
                     ok: false,
                     message: "No tienes permisos para crear cursos"
@@ -62,7 +68,7 @@ const courseController = {
             */
 
 
-            if (!mongoose.Types.ObjectId.isValid(categoriaId)) {
+            if (!mongoose.Types.ObjectId.isValid(categorId)) {
                 return res.status(400).json({
                     ok: false,
                     message: "Categoría inválida"
@@ -114,12 +120,12 @@ const courseController = {
             */
 
             const existingCourse = await courseModels.findOne({
-                instructorId: user._id,
+                instructorId: instructorId,
                 title: title.trim()
             });
 
             if (existingCourse) {
-                return res.status(409).json({
+                return res.status(400).json({
                     ok: false,
                     message: "Ya existe un curso con ese título"
                 });
@@ -137,12 +143,14 @@ const courseController = {
                 precio: Number(precio || 0),
                 nivel,
                 idioma: idioma || "es",
-                categoriaId,
-                instructorId: user._id,
+                durationHours : durationHours,
+                categorId,
+                instructorId: instructorId,
                 objetives: objetives || [],
-                requisitos: requisitos || [],
+                requirements: requirements || [],
                 tags: tags || [],
-                status: "borrador"
+                status: "borrador",
+                cantStudents : cantStudents
             });
 
             await course.save()

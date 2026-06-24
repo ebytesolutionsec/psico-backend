@@ -1,7 +1,6 @@
 
 import categoriModel from "../../models/categori/categori.model.js";
 import paginationHelper from "../../helper/pagination.helper.js";
-import { W } from "@angular/cdk/keycodes";
 
 const categoriController = {
     

@@ -12,6 +12,7 @@ const courseSchema = new mongoose.Schema({
     categorId : { type: mongoose.Schema.Types.ObjectId, ref: 'Categori', required: true },
     objetives: [String],
     tags : [String],
+    requirements : [String],
     status : { type: String, enum: ['publish','review', 'archivado', 'borrador'] },
     cantStudents : { type : Number },
     dateCreation : { type: Date, default: Date.now },

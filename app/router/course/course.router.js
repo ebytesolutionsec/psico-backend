@@ -1,5 +1,6 @@
 import { Router } from "express";
 import courseController from "../../controller/course/course.controller.js";
+import veryfiToken from "../../middleware/auth.middleware.js";
 
 const routerCourse = Router()
 
@@ -61,7 +62,7 @@ const routerCourse = Router()
  *       400:
  *         description: Invalid request
  */
-routerCourse.post('/course/create', courseController.createCourse)
+routerCourse.post('/course/create',veryfiToken, courseController.createCourse)
 
 /**
  * @swagger
